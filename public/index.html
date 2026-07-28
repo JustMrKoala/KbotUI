@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KoalaBotter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-glow bg-glow--left"></div>
+  <div class="bg-glow bg-glow--right"></div>
+
+  <main class="app">
+    <header class="header">
+      <div class="logo">
+        <span class="logo__icon">🐨</span>
+        <div>
+          <h1>KoalaBotter</h1>
+          <p class="tagline">Spawn quiz bots on Kahoot, Blooket, Gimkit &amp; LessonUp</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="card form-card">
+      <form id="spawn-form" class="form">
+        <div class="field">
+          <label for="platform">Platform</label>
+          <div class="platform-grid" id="platform-grid">
+            <label class="platform-option">
+              <input type="radio" name="platform" value="Kahoot" checked />
+              <span class="platform-option__inner platform-option__inner--kahoot">
+                <span class="platform-option__name">Kahoot</span>
+              </span>
+            </label>
+            <label class="platform-option">
+              <input type="radio" name="platform" value="Blooket" />
+              <span class="platform-option__inner platform-option__inner--blooket">
+                <span class="platform-option__name">Blooket</span>
+              </span>
+            </label>
+            <label class="platform-option">
+              <input type="radio" name="platform" value="Gimkit" />
+              <span class="platform-option__inner platform-option__inner--gimkit">
+                <span class="platform-option__name">Gimkit</span>
+              </span>
+            </label>
+            <label class="platform-option">
+              <input type="radio" name="platform" value="LessonUp" />
+              <span class="platform-option__inner platform-option__inner--lessonup">
+                <span class="platform-option__name">LessonUp</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="gamePin">Game PIN / Code</label>
+            <input type="text" id="gamePin" name="gamePin" placeholder="123456" required autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="playerCount">Number of bots</label>
+            <input type="number" id="playerCount" name="playerCount" min="1" max="200" value="5" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="namePrefix">Bot name prefix</label>
+          <input type="text" id="namePrefix" name="namePrefix" placeholder="KoalaBot" value="KoalaBot" />
+        </div>
+
+        <button type="submit" class="btn btn--primary" id="submit-btn">
+          <span class="btn__label">Spawn bots</span>
+          <span class="btn__spinner" hidden></span>
+        </button>
+      </form>
+
+      <p class="hint">
+        Bots join the lobby, answer questions randomly, and stay active until the game ends.
+        This can take several minutes.
+      </p>
+    </section>
+
+    <section class="card status-card" id="status-card" hidden>
+      <div class="status-header">
+        <div class="status-pulse"></div>
+        <div>
+          <h2 id="status-title">Bots running…</h2>
+          <p id="status-subtitle">Waiting for the game to finish</p>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-bar__fill"></div></div>
+    </section>
+
+    <section class="card error-card" id="error-card" hidden>
+      <h2>Something went wrong</h2>
+      <p id="error-message"></p>
+    </section>
+
+    <section class="results" id="results" hidden>
+      <section class="card summary-card">
+        <div class="summary-top">
+          <div>
+            <span class="badge" id="result-platform"></span>
+            <h2 id="result-title">Session complete</h2>
+            <p class="note" id="result-note"></p>
+          </div>
+          <a class="join-link" id="result-join-url" href="#" target="_blank" rel="noopener">Open game</a>
+        </div>
+
+        <div class="stats-grid" id="stats-grid"></div>
+      </section>
+
+      <section class="card players-card">
+        <h3>Players</h3>
+        <div class="table-wrap">
+          <table class="players-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th>Answers</th>
+                <th>End reason</th>
+              </tr>
+            </thead>
+            <tbody id="players-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
